@@ -1,0 +1,41 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: Consolas, monaco, monospace;
+    width: 100%;
+    height: 100%;
+}
+
+#terminal {
+    height: auto;
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+#terminalOutput {
+    display: block;
+    height: auto;
+    word-wrap: break-word;
+    max-height: 80%;
+}
+
+#terminalBottom {
+    display: block;
+    height: 50px;
+    word-wrap: break-word;
+}
+
+#terminalPrompt {
+    padding-right: 10px;
+    width: 40px;
+    float: left;
+}
+
+#terminalInput {
+    min-height: 50px;
+    margin-left: 40px;
+    align-content: start;
+    outline: none;
+}

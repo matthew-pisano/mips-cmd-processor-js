@@ -1,0 +1,49 @@
+const prompt = ":/>";
+const terminal = document.getElementById("terminal");
+const terminalInput = document.getElementById('terminalInput');
+const terminalOutput = document.getElementById('terminalOutput');
+
+function submit() {
+    let text = terminalInput.innerText.trim();
+
+    let commandDiv = document.createElement('div');
+    commandDiv.className = 'terminal-command';
+    commandDiv.innerText = `${prompt} ${text}`;
+    terminalOutput.appendChild(commandDiv);
+
+    let outputDiv = document.createElement('div');
+    outputDiv.className = 'terminal-output';
+    let rawOutput = submitCommand(text);
+    rawOutput = rawOutput.replace(/ /g, '&nbsp;').replaceAll(/\n/g, '<br>');
+    outputDiv.innerHTML = rawOutput;
+    terminalOutput.appendChild(outputDiv);
+
+    // Scroll to the bottom of the terminal output
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+    // Clear the input after submission
+    terminalInput.innerText = '';
+}
+
+// Callback for changes within the contenteditable div
+terminalInput.addEventListener('input', function(event) {
+    // If the key is return
+    if (event.inputType === 'insertParagraph') {
+        event.preventDefault(); // Prevent the default action of adding a newline
+        submit()
+        terminalInput.innerText = ''; // Clear the input after submission
+    }
+});
+
+// Focus input when clicking terminal
+terminal.addEventListener('click', function() {
+    terminalInput.focus();
+});
+
+document.body.addEventListener('click', function(event) {
+    event.preventDefault();
+    terminalInput.focus();
+})
+
+// Initial focus on the input area
+terminalInput.focus();
