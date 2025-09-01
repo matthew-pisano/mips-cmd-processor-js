@@ -1,3 +1,5 @@
+import { startPaint, isPainting, submitPaintCommand } from "./paint";
+
 const helpString = `--Help Menu--
 echo    Prints an inputted phrase to the screen
                 arg1: The phrase to print
@@ -47,12 +49,10 @@ divh    Divides the two hexadecimal arguments
                 arg1: The dividend
                 arg2: The divisor`;
 
-
 // Ter terminal prompts
 const defaultPrompt = ":/>";
 const paintPrompt = ":/P>";
 let currentPrompt = defaultPrompt;
-
 
 /**
  * Displays the help menu
@@ -60,11 +60,10 @@ let currentPrompt = defaultPrompt;
  * @returns {string} The help menu or an error message
  */
 function help(args) {
-    if (args.length !== 0) return 'Error: help does not take any arguments';
+    if (args.length !== 0) return "Error: help does not take any arguments";
 
     return helpString;
 }
-
 
 /**
  * Prints the inputted arguments to the screen
@@ -72,9 +71,8 @@ function help(args) {
  * @returns {string} The concatenated message
  */
 function echo(args) {
-    return args.join(' ')
+    return args.join(" ");
 }
-
 
 /**
  * Terminates the program
@@ -82,18 +80,17 @@ function echo(args) {
  * @returns {string} The termination message or an error message
  */
 function exit(args) {
-    if (args.length !== 0) return 'Error: exit does not take any arguments';
+    if (args.length !== 0) return "Error: exit does not take any arguments";
 
     // Delay the exit to allow the user to see the message
     let delayedExit = async (timeout) => {
-        await new Promise(resolve => setTimeout(resolve, timeout));
+        await new Promise((resolve) => setTimeout(resolve, timeout));
         window.close();
-    }
+    };
     delayedExit(2000);
 
-    return 'Have a good day!\nTerminating...'
+    return "Have a good day!\nTerminating...";
 }
-
 
 /**
  * Adds two decimal numbers
@@ -101,15 +98,14 @@ function exit(args) {
  * @returns {string} The result of the addition or an error message
  */
 function addd(args) {
-    if (args.length !== 2) return 'Error: add requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: add requires exactly 2 arguments";
 
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: add requires numeric arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: add requires numeric arguments";
 
     return `${num1} + ${num2} = ${(num1 + num2).toString()}`;
 }
-
 
 /**
  * Adds two hexadecimal numbers
@@ -117,15 +113,14 @@ function addd(args) {
  * @returns {string} The result of the addition or an error message
  */
 function addh(args) {
-    if (args.length !== 2) return 'Error: addh requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: addh requires exactly 2 arguments";
 
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: addh requires hexadecimal arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: addh requires hexadecimal arguments";
 
     return `${args[0]} + ${args[1]} = ${(num1 + num2).toString(16).toUpperCase()}`;
 }
-
 
 /**
  * Subtracts two decimal numbers
@@ -133,15 +128,14 @@ function addh(args) {
  * @returns {string} The result of the subtraction or an error message
  */
 function subd(args) {
-    if (args.length !== 2) return 'Error: sub requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: sub requires exactly 2 arguments";
 
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: sub requires numeric arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: sub requires numeric arguments";
 
     return `${num1} - ${num2} = ${(num1 - num2).toString()}`;
 }
-
 
 /**
  * Subtracts two hexadecimal numbers
@@ -149,11 +143,11 @@ function subd(args) {
  * @returns {string} The result of the subtraction or an error message
  */
 function subh(args) {
-    if (args.length !== 2) return 'Error: subh requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: subh requires exactly 2 arguments";
 
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: subh requires hexadecimal arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: subh requires hexadecimal arguments";
 
     return `${args[0]} - ${args[1]} = ${(num1 - num2).toString(16).toUpperCase()}`;
 }
@@ -164,16 +158,15 @@ function subh(args) {
  * @returns {string} The result of the division or an error message
  */
 function divd(args) {
-    if (args.length !== 2) return 'Error: div requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: div requires exactly 2 arguments";
 
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: div requires numeric arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: div requires numeric arguments";
 
-    if (num2 === 0) return 'Error: Division by zero';
+    if (num2 === 0) return "Error: Division by zero";
     return `${num1} / ${num2} = ${(num1 / num2).toString()}`;
 }
-
 
 /**
  * Divides two hexadecimal numbers
@@ -181,16 +174,15 @@ function divd(args) {
  * @returns {string} The result of the division or an error message
  */
 function divh(args) {
-    if (args.length !== 2) return 'Error: divh requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: divh requires exactly 2 arguments";
 
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: divh requires hexadecimal arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: divh requires hexadecimal arguments";
 
-    if (num2 === 0) return 'Error: Division by zero';
+    if (num2 === 0) return "Error: Division by zero";
     return `${args[0]} / ${args[1]} = ${(num1 / num2).toString(16).toUpperCase()}`;
 }
-
 
 /**
  * Multiplies two decimal numbers
@@ -198,15 +190,14 @@ function divh(args) {
  * @returns {string} The result of the multiplication or an error message
  */
 function muld(args) {
-    if (args.length !== 2) return 'Error: mul requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: mul requires exactly 2 arguments";
 
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: mul requires numeric arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: mul requires numeric arguments";
 
     return `${num1} * ${num2} = ${(num1 * num2).toString()}`;
 }
-
 
 /**
  * Multiplies two hexadecimal numbers
@@ -214,15 +205,14 @@ function muld(args) {
  * @returns {string} The result of the multiplication or an error message
  */
 function mulh(args) {
-    if (args.length !== 2) return 'Error: mulh requires exactly 2 arguments';
+    if (args.length !== 2) return "Error: mulh requires exactly 2 arguments";
 
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
-    if (isNaN(num1) || isNaN(num2)) return 'Error: mulh requires hexadecimal arguments';
+    if (isNaN(num1) || isNaN(num2)) return "Error: mulh requires hexadecimal arguments";
 
     return `${args[0]} * ${args[1]} = ${(num1 * num2).toString(16).toUpperCase()}`;
 }
-
 
 /**
  * Converts a decimal number to hexadecimal
@@ -230,14 +220,13 @@ function mulh(args) {
  * @returns {string} The result of the conversion or an error message
  */
 function dechex(args) {
-    if (args.length !== 1) return 'Error: dechex requires exactly 1 argument';
+    if (args.length !== 1) return "Error: dechex requires exactly 1 argument";
 
     let num = parseFloat(args[0]);
-    if (isNaN(num)) return 'Error: dechex requires a decimalc argument';
+    if (isNaN(num)) return "Error: dechex requires a decimalc argument";
 
     return `${num} in decimal is ${Math.floor(num).toString(16)} in hexadecimal`;
 }
-
 
 /**
  * Converts a hexadecimal number to decimal
@@ -245,27 +234,25 @@ function dechex(args) {
  * @returns {string} The result of the conversion or an error message
  */
 function hexdec(args) {
-    if (args.length !== 1) return 'Error: hexdec requires exactly 1 argument';
+    if (args.length !== 1) return "Error: hexdec requires exactly 1 argument";
 
     let num = parseInt(args[0], 16);
-    if (isNaN(num)) return 'Error: hexdec requires a hexadecimal argument';
+    if (isNaN(num)) return "Error: hexdec requires a hexadecimal argument";
 
     return `${args[0]} in hexadecimal is ${num.toString()} in decimal`;
 }
-
 
 /**
  * Paints on the bitmapped display
  * @param args {Array} The arguments for painting
  */
 function paint(args) {
-    if (args.length !== 0) return 'Error: paint does not take any arguments';
+    if (args.length !== 0) return "Error: paint does not take any arguments";
 
     currentPrompt = paintPrompt;
     startPaint();
-    return '--Paint--\nOpen Bitmap Display\nStarting Paint...(Enter x To Exit)';
+    return "--Paint--\nOpen Bitmap Display\nStarting Paint...(Enter x To Exit)";
 }
-
 
 /**
  * Submits a command to be processed
@@ -273,47 +260,48 @@ function paint(args) {
  * @returns {string} The output of the command
  */
 function submitCommand(rawCommand) {
-
     if (isPainting()) return submitPaintCommand(rawCommand);
     else currentPrompt = defaultPrompt;
 
-    if (rawCommand === '') return '';
+    if (rawCommand === "") return "";
 
     // Token parsing on the command
-    let tokens = rawCommand.split(' ');
+    let tokens = rawCommand.split(" ");
     let command = tokens[0];
     let args = tokens.slice(1);
 
     switch (command) {
-        case 'help':
+        case "help":
             return help(args);
-        case 'echo':
+        case "echo":
             return echo(args);
-        case 'exit':
+        case "exit":
             return exit(args);
-        case 'add':
+        case "add":
             return addd(args);
-        case 'addh':
+        case "addh":
             return addh(args);
-        case 'sub':
+        case "sub":
             return subd(args);
-        case 'subh':
+        case "subh":
             return subh(args);
-        case 'div':
+        case "div":
             return divd(args);
-        case 'divh':
+        case "divh":
             return divh(args);
-        case 'mul':
+        case "mul":
             return muld(args);
-        case 'mulh':
+        case "mulh":
             return mulh(args);
-        case 'dechex':
+        case "dechex":
             return dechex(args);
-        case 'hexdec':
+        case "hexdec":
             return hexdec(args);
-        case 'paint':
+        case "paint":
             return paint(args);
         default:
             return `Command not recognized: ${command}`;
     }
 }
+
+export { currentPrompt, submitCommand };
