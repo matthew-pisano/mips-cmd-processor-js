@@ -82,12 +82,8 @@ function echo(args) {
 function exit(args) {
     if (args.length !== 0) return "Error: exit does not take any arguments";
 
-    // Delay the exit to allow the user to see the message
-    let delayedExit = async (timeout) => {
-        await new Promise((resolve) => setTimeout(resolve, timeout));
-        window.close();
-    };
-    delayedExit(2000);
+    // Remove input space
+    document.getElementById("terminalBottom").remove();
 
     return "Have a good day!\nTerminating...";
 }
