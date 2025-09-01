@@ -1,5 +1,5 @@
-import { currentPrompt, submitCommand } from "./cmd";
-import { isPainting } from "./paint";
+import { currentPrompt, submitCommand } from "./cmd.js";
+import { isPainting } from "./paint.js";
 
 const terminal = document.getElementById("terminal");
 const terminalInput = document.getElementById("terminalInput");

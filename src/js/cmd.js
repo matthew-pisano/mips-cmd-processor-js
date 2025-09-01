@@ -1,4 +1,4 @@
-import { startPaint, isPainting, submitPaintCommand } from "./paint";
+import { startPaint, isPainting, submitPaintCommand } from "./paint.js";
 
 const helpString = `--Help Menu--
 echo    Prints an inputted phrase to the screen
