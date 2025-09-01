@@ -3,9 +3,6 @@ echo    Prints an inputted phrase to the screen
                 arg1: The phrase to print
 exit    Terminates the program
 help    Displays command list and usages
-memory  Displays a specified section of memory
-                arg1: The hexadecimal memory address
-                arg2 (Optional): The length of memory to print in decimal, if no arg2 then print out the bit at the address
 dechex  Converts the argument from decimal to hexadecimal
                 arg1: The decimal number ot be converted
 hexdec  Converts the argument from hexadecimal to decimal
