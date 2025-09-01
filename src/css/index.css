@@ -31,13 +31,13 @@ html, body {
 
 #terminalPrompt {
     padding-right: 10px;
-    width: 40px;
+    width: 50px;
     float: left;
 }
 
 #terminalInput {
     min-height: 50px;
-    margin-left: 40px;
+    margin-left: 50px;
     align-content: start;
     outline: none;
 }

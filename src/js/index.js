@@ -1,7 +1,8 @@
-const prompt = ":/>";
 const terminal = document.getElementById("terminal");
 const terminalInput = document.getElementById('terminalInput');
 const terminalOutput = document.getElementById('terminalOutput');
+const terminalPrompt = document.getElementById('terminalPrompt');
+
 
 /**
  * Submits the command in the terminal input
@@ -11,21 +12,28 @@ function submit() {
 
     let commandDiv = document.createElement('div');
     commandDiv.className = 'terminal-command';
-    commandDiv.innerText = `${prompt} ${text}`;
-    terminalOutput.appendChild(commandDiv);
+    commandDiv.innerText = `${currentPrompt} ${text}`;
 
     let outputDiv = document.createElement('div');
     outputDiv.className = 'terminal-output';
     let rawOutput = submitCommand(text);
     rawOutput = rawOutput.replace(/ /g, '&nbsp;').replaceAll(/\n/g, '<br>');
     outputDiv.innerHTML = rawOutput;
-    terminalOutput.appendChild(outputDiv);
+
+    // Do not echo if painting
+    if (!isPainting())
+        terminalOutput.appendChild(commandDiv);
+    // Only show error messages when painting
+    if (rawOutput !== '')
+        terminalOutput.appendChild(outputDiv);
 
     // Scroll to the bottom of the terminal output
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
     // Clear the input after submission
     terminalInput.innerText = '';
+
+    terminalPrompt.innerText = currentPrompt;
 }
 
 // Callback for changes within the contenteditable div

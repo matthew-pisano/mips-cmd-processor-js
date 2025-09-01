@@ -3,6 +3,21 @@ echo    Prints an inputted phrase to the screen
                 arg1: The phrase to print
 exit    Terminates the program
 help    Displays command list and usages
+paint   Draws on a bitmap display
+                --Controls--
+                w: Moves the brush up
+                a: Moves the brush left
+                s: Moves the brush down
+                d: Moves the brush right
+                t: Toggles between draw and erase
+                +: Increases the brush size
+                -: Decreases the brush size
+                R: Increases the Redness of the brush
+                r: Decreases the Redness of the brush
+                G: Increases the Greenness of the brush
+                g: Decreases the Greenness of the brush
+                B: Increases the Blueness of the brush
+                b: Decreases the Blueness of the brush
 dechex  Converts the argument from decimal to hexadecimal
                 arg1: The decimal number ot be converted
 hexdec  Converts the argument from hexadecimal to decimal
@@ -31,6 +46,12 @@ div     Divides the two decimal arguments
 divh    Divides the two hexadecimal arguments
                 arg1: The dividend
                 arg2: The divisor`;
+
+
+// Ter terminal prompts
+const defaultPrompt = ":/>";
+const paintPrompt = ":/P>";
+let currentPrompt = defaultPrompt;
 
 
 /**
@@ -234,12 +255,30 @@ function hexdec(args) {
 
 
 /**
+ * Paints on the bitmapped display
+ * @param args {Array} The arguments for painting
+ */
+function paint(args) {
+    if (args.length !== 0) return 'Error: paint does not take any arguments';
+
+    currentPrompt = paintPrompt;
+    startPaint();
+    return '--Paint--\nOpen Bitmap Display\nStarting Paint...(Enter x To Exit)';
+}
+
+
+/**
  * Submits a command to be processed
  * @param rawCommand {string} The raw command string
  * @returns {string} The output of the command
  */
 function submitCommand(rawCommand) {
+
+    if (isPainting()) return submitPaintCommand(rawCommand);
+    else currentPrompt = defaultPrompt;
+
     if (rawCommand === '') return '';
+
     // Token parsing on the command
     let tokens = rawCommand.split(' ');
     let command = tokens[0];
@@ -272,6 +311,8 @@ function submitCommand(rawCommand) {
             return dechex(args);
         case 'hexdec':
             return hexdec(args);
+        case 'paint':
+            return paint(args);
         default:
             return `Command not recognized: ${command}`;
     }
