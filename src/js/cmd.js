@@ -36,13 +36,23 @@ divh    Divides the two hexadecimal arguments
                 arg2: The divisor`;
 
 function help(args) {
+    if (args.length !== 0) return 'Error: help does not take any arguments';
     return helpString;
 }
 function echo(args) {
     return args.join(' ')
 }
 function exit(args) {
-    window.close();
+    if (args.length !== 0) return 'Error: exit does not take any arguments';
+
+    // Delay the exit to allow the user to see the message
+    let delayedExit = async (timeout) => {
+        await new Promise(resolve => setTimeout(resolve, timeout));
+        window.close();
+    }
+    delayedExit(2000);
+
+    return 'Have a good day!\nTerminating...'
 }
 function addd(args) {
     if (args.length !== 2) return 'Error: add requires exactly 2 arguments';
@@ -105,7 +115,7 @@ function mulh(args) {
 function dechex(args) {
     if (args.length !== 1) return 'Error: dechex requires exactly 1 argument';
     let num = parseFloat(args[0]);
-    if (isNaN(num)) return 'Error: dechex requires a numeric argument';
+    if (isNaN(num)) return 'Error: dechex requires a decimalc argument';
     return `${num} in decimal is ${Math.floor(num).toString(16)} in hexadecimal`;
 }
 function hexdec(args) {
@@ -124,11 +134,11 @@ function submitCommand(rawCommand) {
 
     switch (command) {
         case 'help':
-            return help();
+            return help(args);
         case 'echo':
             return echo(args);
         case 'exit':
-            return exit();
+            return exit(args);
         case 'add':
             return addd(args);
         case 'addh':
