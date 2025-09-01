@@ -3,6 +3,9 @@ const terminal = document.getElementById("terminal");
 const terminalInput = document.getElementById('terminalInput');
 const terminalOutput = document.getElementById('terminalOutput');
 
+/**
+ * Submits the command in the terminal input
+ */
 function submit() {
     let text = terminalInput.innerText.trim();
 
@@ -40,6 +43,7 @@ terminal.addEventListener('click', function() {
     terminalInput.focus();
 });
 
+// Focus input when clicking anywhere on the page
 document.body.addEventListener('click', function(event) {
     event.preventDefault();
     terminalInput.focus();

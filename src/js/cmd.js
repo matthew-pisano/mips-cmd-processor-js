@@ -35,13 +35,34 @@ divh    Divides the two hexadecimal arguments
                 arg1: The dividend
                 arg2: The divisor`;
 
+
+/**
+ * Displays the help menu
+ * @param args {Array} The arguments passed to the command
+ * @returns {string} The help menu or an error message
+ */
 function help(args) {
     if (args.length !== 0) return 'Error: help does not take any arguments';
+
     return helpString;
 }
+
+
+/**
+ * Prints the inputted arguments to the screen
+ * @param args {Array} The messages to be printed
+ * @returns {string} The concatenated message
+ */
 function echo(args) {
     return args.join(' ')
 }
+
+
+/**
+ * Terminates the program
+ * @param args {Array} The arguments passed to the command
+ * @returns {string} The termination message or an error message
+ */
 function exit(args) {
     if (args.length !== 0) return 'Error: exit does not take any arguments';
 
@@ -54,80 +75,175 @@ function exit(args) {
 
     return 'Have a good day!\nTerminating...'
 }
+
+
+/**
+ * Adds two decimal numbers
+ * @param args {Array} The decimal numbers to be added
+ * @returns {string} The result of the addition or an error message
+ */
 function addd(args) {
     if (args.length !== 2) return 'Error: add requires exactly 2 arguments';
+
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
     if (isNaN(num1) || isNaN(num2)) return 'Error: add requires numeric arguments';
+
     return `${num1} + ${num2} = ${(num1 + num2).toString()}`;
 }
+
+
+/**
+ * Adds two hexadecimal numbers
+ * @param args {Array} The hexadecimal numbers to be added
+ * @returns {string} The result of the addition or an error message
+ */
 function addh(args) {
     if (args.length !== 2) return 'Error: addh requires exactly 2 arguments';
+
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
     if (isNaN(num1) || isNaN(num2)) return 'Error: addh requires hexadecimal arguments';
+
     return `${args[0]} + ${args[1]} = ${(num1 + num2).toString(16).toUpperCase()}`;
 }
+
+
+/**
+ * Subtracts two decimal numbers
+ * @param args {Array} The decimal numbers to be subtracted
+ * @returns {string} The result of the subtraction or an error message
+ */
 function subd(args) {
     if (args.length !== 2) return 'Error: sub requires exactly 2 arguments';
+
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
     if (isNaN(num1) || isNaN(num2)) return 'Error: sub requires numeric arguments';
+
     return `${num1} - ${num2} = ${(num1 - num2).toString()}`;
 }
+
+
+/**
+ * Subtracts two hexadecimal numbers
+ * @param args {Array} The hexadecimal numbers to be subtracted
+ * @returns {string} The result of the subtraction or an error message
+ */
 function subh(args) {
     if (args.length !== 2) return 'Error: subh requires exactly 2 arguments';
+
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
     if (isNaN(num1) || isNaN(num2)) return 'Error: subh requires hexadecimal arguments';
+
     return `${args[0]} - ${args[1]} = ${(num1 - num2).toString(16).toUpperCase()}`;
 }
+
+/**
+ * Divides two decimal numbers
+ * @param args {Array} The decimal numbers to be divided
+ * @returns {string} The result of the division or an error message
+ */
 function divd(args) {
     if (args.length !== 2) return 'Error: div requires exactly 2 arguments';
+
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
     if (isNaN(num1) || isNaN(num2)) return 'Error: div requires numeric arguments';
+
     if (num2 === 0) return 'Error: Division by zero';
     return `${num1} / ${num2} = ${(num1 / num2).toString()}`;
 }
+
+
+/**
+ * Divides two hexadecimal numbers
+ * @param args {Array} The hexadecimal numbers to be divided
+ * @returns {string} The result of the division or an error message
+ */
 function divh(args) {
     if (args.length !== 2) return 'Error: divh requires exactly 2 arguments';
+
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
     if (isNaN(num1) || isNaN(num2)) return 'Error: divh requires hexadecimal arguments';
+
     if (num2 === 0) return 'Error: Division by zero';
     return `${args[0]} / ${args[1]} = ${(num1 / num2).toString(16).toUpperCase()}`;
 }
+
+
+/**
+ * Multiplies two decimal numbers
+ * @param args {Array} The decimal numbers to be multiplied
+ * @returns {string} The result of the multiplication or an error message
+ */
 function muld(args) {
     if (args.length !== 2) return 'Error: mul requires exactly 2 arguments';
+
     let num1 = parseFloat(args[0]);
     let num2 = parseFloat(args[1]);
     if (isNaN(num1) || isNaN(num2)) return 'Error: mul requires numeric arguments';
+
     return `${num1} * ${num2} = ${(num1 * num2).toString()}`;
 }
+
+
+/**
+ * Multiplies two hexadecimal numbers
+ * @param args {Array} The hexadecimal numbers to be multiplied
+ * @returns {string} The result of the multiplication or an error message
+ */
 function mulh(args) {
     if (args.length !== 2) return 'Error: mulh requires exactly 2 arguments';
+
     let num1 = parseInt(args[0], 16);
     let num2 = parseInt(args[1], 16);
     if (isNaN(num1) || isNaN(num2)) return 'Error: mulh requires hexadecimal arguments';
+
     return `${args[0]} * ${args[1]} = ${(num1 * num2).toString(16).toUpperCase()}`;
 }
+
+
+/**
+ * Converts a decimal number to hexadecimal
+ * @param args {Array} The decimal number to be converted
+ * @returns {string} The result of the conversion or an error message
+ */
 function dechex(args) {
     if (args.length !== 1) return 'Error: dechex requires exactly 1 argument';
+
     let num = parseFloat(args[0]);
     if (isNaN(num)) return 'Error: dechex requires a decimalc argument';
+
     return `${num} in decimal is ${Math.floor(num).toString(16)} in hexadecimal`;
 }
+
+
+/**
+ * Converts a hexadecimal number to decimal
+ * @param args {Array} The hexadecimal number to be converted
+ * @returns {string} The result of the conversion or an error message
+ */
 function hexdec(args) {
     if (args.length !== 1) return 'Error: hexdec requires exactly 1 argument';
+
     let num = parseInt(args[0], 16);
     if (isNaN(num)) return 'Error: hexdec requires a hexadecimal argument';
+
     return `${args[0]} in hexadecimal is ${num.toString()} in decimal`;
 }
 
+
+/**
+ * Submits a command to be processed
+ * @param rawCommand {string} The raw command string
+ * @returns {string} The output of the command
+ */
 function submitCommand(rawCommand) {
     if (rawCommand === '') return '';
-
+    // Token parsing on the command
     let tokens = rawCommand.split(' ');
     let command = tokens[0];
     let args = tokens.slice(1);
